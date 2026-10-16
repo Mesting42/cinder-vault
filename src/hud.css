@@ -1,0 +1,76 @@
+/* Combat information shares the boss bar framing and leaves the room exposed. */
+#hud .hud-top{top:var(--safe-top);left:var(--safe-left);right:var(--safe-right);height:44px;gap:0}
+#hud #floor-label{position:absolute;left:50%;transform:translateX(-50%);margin:0;font-size:11px;letter-spacing:1px;white-space:nowrap;text-shadow:0 2px 4px #000}
+#hud #pause-btn{margin-left:auto;display:grid;place-items:center;padding:0;width:44px;height:44px;background:#101b1bbd}
+#pause-btn svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:2}
+#hud .vitals{top:calc(var(--safe-top) + 12px);left:var(--safe-left);width:240px;min-width:0;filter:drop-shadow(0 2px 4px #000a)}
+.vital-row{display:grid;grid-template-columns:15px minmax(0,1fr) 37px;align-items:center;gap:7px;min-height:18px}
+.vital-row>i,.resources i,.ability i{display:flex;align-items:center;justify-content:center;font-style:normal}
+.vital-row svg,.resources svg,.ability svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.health-row{color:#eb9983}.shield-row{color:#f2f4f1;margin-top:2px}
+#hud .vital-track{height:8px;margin:0;border:1px solid #9f6159;background:#312025;box-shadow:0 1px 4px #0006;overflow:hidden}
+#hud .vital-track>div{height:100%;background:linear-gradient(90deg,#b74042,#ef9a73);transition:none}
+#hud .shield-row .vital-track{height:6px;border-color:#afb7b1;background:#23302c}
+#hud #player-shield-fill{background:linear-gradient(90deg,#bac8c3,#ffffff)}
+.vital-row b{font:11px Consolas,monospace;text-align:right;font-variant-numeric:tabular-nums;font-weight:400;color:inherit}
+#hud #weapon-hud{position:static;width:100%;min-width:0;padding:0;margin-top:9px;border:0;background:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+.weapon-line{display:flex;align-items:baseline;gap:10px;justify-content:space-between;min-width:0;white-space:nowrap}
+#hud #weapon-name{display:block;font-size:13px;letter-spacing:1px;font-weight:500;margin:0;overflow:hidden;text-overflow:ellipsis;min-width:0}
+#hud #ammo{flex:none;font:16px Consolas,monospace;color:#e6ca96;white-space:nowrap}
+#hud #ammo small{font-size:10px;color:#bcc6b9}
+#hud #reload-track{width:100%;height:2px;margin-top:5px;background:#283a33}
+#hud #weapon-hud[data-resource=mana] #reload-track i{background:#93d6df}
+#hud #weapon-hud[data-resource=mana] #ammo{color:#b1e1e6}
+#hud #weapon-hud[data-resource=combo] #reload-track{visibility:hidden}
+#hud .resources{display:flex;gap:18px;margin-top:9px;font-size:10px}
+.resources>span{display:flex;align-items:center;gap:5px}
+#hud .resources b{font:12px Consolas,monospace;color:#e6d4ab}
+#hud .resources i{color:#cfb681;font-size:0}
+#hud .resources>span:last-child i{color:#c0dbd1}
+#hud .hud-bottom{bottom:20px;left:var(--safe-left);right:var(--safe-right);justify-content:flex-end}
+#hud .ability{color:#cbd7c7;font-size:11px;max-width:240px;text-shadow:0 2px 4px #000}
+.skill-hud,.device-hud{display:flex;align-items:center;justify-content:flex-end;gap:9px}
+#hud .ability strong{font-size:12px;margin:0;font-weight:400;letter-spacing:0}
+#hud .ability i svg{width:21px;height:21px;color:#d9c28f}
+#hud #skill-cooldown,#hud #active-cooldown{font:11px Consolas,monospace;color:#d6d3b8;min-height:0;min-width:24px}
+#hud .device-hud{margin-top:8px}
+#hud #minimap-wrap{top:calc(var(--safe-top) + 58px);padding:5px 0 7px;background:#0d181b99}
+#hud [hidden]{display:none!important}
+#touch-controls .stick-thumb{width:34%;height:34%;top:33%;left:33%}
+#touch-controls .stick>span,#touch-controls .touch-button>span{display:none}
+#touch-controls .touch-button svg{width:27px;height:27px;stroke-width:1.55}
+#touch-controls .touch-button{background:linear-gradient(145deg,#223229d9,#101d17df);border-color:#8d9d7f8c;box-shadow:inset 0 0 0 2px #142219a0,0 2px 6px #0004}
+#touch-controls .touch-roll{background:linear-gradient(145deg,#6b4b34e0,#30271fdf);border-color:#cbaa76}
+#touch-controls .touch-skill{border-color:var(--touch-accent)}
+#touch-controls .touch-interact.ready>span{display:block;position:absolute;bottom:3px;font-size:9px;letter-spacing:0;line-height:1}
+#touch-controls .touch-interact.ready svg{transform:translateY(-4px);width:24px;height:24px}
+#touch-controls .touch-button small{right:3px;top:3px;font-size:10px;padding:0 2px;background:#10201bbb;border-radius:2px;line-height:13px}
+#touch-controls .touch-button small:empty{display:none}
+#touch-controls .touch-utilities.utilities-column{flex-direction:column;gap:5px}
+#touch-controls .touch-utilities svg,#touch-controls .touch-tools svg{width:24px;height:24px}
+/* Equipment and pause share one row; the minimap is the map entry. */
+#touch-controls .touch-tools{top:var(--safe-top);right:calc(var(--safe-right) + 50px)}
+#touch-controls .touch-tools .touch-button{width:44px;height:44px}
+.settings-touch-preview{position:relative;height:92px;margin-top:10px;border-bottom:1px solid #98735940;background:#111b19}
+.preview-stick{position:absolute;bottom:12px;width:var(--preview-left-size);height:var(--preview-left-size);border:1px solid #a7bc9880;border-radius:50%;display:grid;place-items:center}
+.preview-left{left:calc(16px + var(--preview-left-inset))}
+.preview-right{width:var(--preview-right-size);height:var(--preview-right-size);right:calc(16px + var(--preview-right-inset));border-color:#c7b185}
+.preview-stick i{width:34%;height:34%;border:1px solid #b8c1a6;border-radius:50%;background:#2c4233}
+.preview-right i{border-color:#c7b185;background:#574531}
+.preview-stick span{position:absolute;bottom:-16px;font-size:10px;color:#c1c9b8;white-space:nowrap}
+#modal .settings-touch-hint{margin:10px 0 4px;font-size:11px;line-height:1.7;color:var(--settings-muted)}
+.setting-range input{min-height:44px}
+.settings-small,.settings-key,.settings-header button{min-height:44px}
+@media(orientation:landscape) and (max-height:540px){
+  #hud .vitals{width:202px;top:calc(var(--safe-top) + 5px)}
+  #hud #floor-label{font-size:9px}
+  #hud #weapon-name{font-size:12px;letter-spacing:.5px}
+  #hud #ammo{font-size:14px}
+  #hud #weapon-hud{margin-top:5px}
+  #hud .resources{margin-top:6px;gap:17px}
+  #hud .vital-track{height:7px}
+  #hud #minimap-wrap{top:calc(var(--safe-top) + 96px)}
+  #touch-controls .touch-actions svg{width:26px;height:26px}
+}
+@media(max-width:740px) and (orientation:landscape){#hud .vitals{width:190px}#hud #floor-label{left:52%}#hud .resources{gap:15px}}
+.touch-input #hud #minimap-wrap{top:calc(var(--safe-top) + 54px)}

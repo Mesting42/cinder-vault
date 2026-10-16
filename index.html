@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"><meta name="theme-color" content="#10151d"><meta name="game-view" content="music-heroes-20261005-17"><link rel="icon" type="image/svg+xml" href="/cinder-mark.svg"><title>断誓之下 BELOW THE OATH — 三职业 / 随机地牢</title><link rel="stylesheet" href="/src/style.css"></head>
+<body>
+<!-- Visual contract: black iron and oxblood UI, cold white typography, a hand-drawn ember crest and code-built archive hall. Preserve readable warnings, semantic damage colors and 44px touch targets. -->
+<main id="app">
+  <canvas id="world" aria-label="断誓之下 3D 地牢游戏"></canvas><div class="vignette"></div><div class="grain"></div>
+  <div id="hud" class="hidden">
+    <header class="hud-top"><div id="floor-label"></div><button id="pause-btn" aria-label="暂停"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14M16 5v14"/></svg></button></header>
+    <div class="vitals" aria-label="角色状态"><span id="class-badge" hidden></span>
+      <div class="vital-row health-row"><i data-hud-icon="health"></i><div id="player-health-track" class="vital-track boss-track" role="progressbar" aria-label="生命" aria-valuemin="0" aria-valuemax="1" aria-valuenow="1"><div id="player-health-fill"></div></div><b id="player-health-value"></b></div>
+      <div class="vital-row shield-row"><i data-hud-icon="shield"></i><div id="player-shield-track" class="vital-track boss-track" role="progressbar" aria-label="护盾" aria-valuemin="0" aria-valuemax="1" aria-valuenow="0"><div id="player-shield-fill"></div></div><b id="player-shield-value"></b></div>
+      <div id="weapon-hud" aria-label="当前武器"><div class="weapon-line"><strong id="weapon-name"></strong><span id="ammo"></span></div><div id="reload-track"><i></i></div><span id="weapon-index" hidden></span><small id="weapon-trait" hidden></small></div>
+      <div class="resources"><span aria-label="弹壳" title="弹壳"><i data-hud-icon="coins"></i><b id="coins">0</b></span><span aria-label="钥匙" title="钥匙"><i data-hud-icon="keys"></i><b id="keys">0</b></span><span aria-label="空包弹" title="空包弹"><i data-hud-icon="blank"></i><b id="blanks">0</b></span></div>
+    </div>
+    <div id="minimap-wrap"><canvas id="minimap" width="220" height="170"></canvas><div id="room-name"></div></div>
+    <div id="boss-hud" class="hidden"><div><span id="boss-name">断誓钟卫</span><b id="boss-phase">I</b></div><div class="boss-track"><div id="boss-health"></div></div></div>
+    <div id="room-banner"></div><div id="toast-stack"></div><div id="interaction" class="hidden"></div>
+    <footer class="hud-bottom"><div id="build-hud" hidden></div><div class="ability"><div class="skill-hud"><i id="desktop-skill-icon"></i><strong id="skill-name"></strong><span id="skill-cooldown"></span></div><div class="device-hud"><i id="desktop-device-icon"></i><span id="active-name"></span><span id="active-cooldown"></span></div></div></footer>
+    <div id="crosshair"><i></i><b></b></div><div id="damage-flash"></div>
+  </div>
+  <section id="menu" class="panel-screen" aria-busy="false" data-state="idle">
+    <div class="verdict-scene" aria-hidden="true"><canvas id="menu-scene"></canvas></div>
+    <nav class="menu-nav"><span class="archive-mark"><svg class="cinder-mark" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M23 6H14L6 14v13m35-21h9l8 8v13M6 41v9l8 8h13m31-17v9l-8 8H37" stroke="#74808d" stroke-width="2.5"/><path d="m32 9 9 20-5 9-4 17-4-17-5-9z" fill="#e9edf2"/><path d="m15 28 10 12-4-1-8-5zm34 0L39 40l4-1 8-5z" fill="#c34a51"/><path d="M32 20v25" stroke="#8d3039" stroke-width="2"/></svg><span class="brand-copy">BELOW THE OATH <small>断誓之下</small></span></span><div class="menu-utilities"><button id="menu-quick-settings" aria-label="打开游戏设置">设置</button><button id="audio-toggle" aria-label="切换声音">声音 ON</button></div></nav>
+    <div class="menu-main">
+      <h1 class="verdict-title" aria-label="断誓之下 BELOW THE OATH"><span>Below</span><span>The Oath</span><em>断誓之下</em></h1>
+      <div class="verdict-ornament" aria-hidden="true"><i></i><svg viewBox="0 0 80 24"><path d="M0 12h22l7-5 11 5 11-5 7 5h22M29 12l11 8 11-8M34 12l6-8 6 8-6 8Z"/></svg><i></i></div>
+      <div class="menu-actions verdict-actions" role="group" aria-label="主菜单">
+        <button id="start-btn" class="verdict-row selected"><i class="verdict-icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M8 2l1.5 4.5L14 8l-4.5 1.5L8 14 6.5 9.5 2 8l4.5-1.5z"/></svg></i><b>开始深入</b><small>START</small><span aria-hidden="true"><svg viewBox="0 0 12 16"><path d="m4 3 5 5-5 5"/></svg></span></button>
+        <button id="menu-classes" class="verdict-row"><i class="verdict-icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M8 2a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M3 14v-2a5 5 0 0 1 10 0v2z"/></svg></i><b>职业档案</b><small>CLASSES</small><span aria-hidden="true"><svg viewBox="0 0 12 16"><path d="m4 3 5 5-5 5"/></svg></span></button>
+        <button id="menu-settings" class="verdict-row"><i class="verdict-icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M8 3v2m0 6v2M3 8h2m6 0h2M4.5 4.5l1.4 1.4m4.2 4.2 1.4 1.4m0-7-1.4 1.4m-4.2 4.2-1.4 1.4M10.5 8a2.5 2.5 0 1 0-5 0 2.5 2.5 0 0 0 5 0"/></svg></i><b>游戏设置</b><small>SETTINGS</small><span aria-hidden="true"><svg viewBox="0 0 12 16"><path d="m4 3 5 5-5 5"/></svg></span></button>
+        <button id="guide-btn" class="verdict-row"><i class="verdict-icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M3 2h10v12H3zM5.5 5h5m-5 3h5m-5 3h3"/></svg></i><b>行动手册</b><small>ARCHIVE</small><span aria-hidden="true"><svg viewBox="0 0 12 16"><path d="m4 3 5 5-5 5"/></svg></span></button>
+        <button id="menu-fullscreen" class="verdict-row"><i class="verdict-icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M2 6V2h4m4 0h4v4m0 4v4h-4m-4 0H2v-4"/></svg></i><b>全屏视野</b><small>FULLSCREEN</small><span aria-hidden="true"><svg viewBox="0 0 12 16"><path d="m4 3 5 5-5 5"/></svg></span></button>
+      </div>
+      <p id="menu-load-status" class="menu-load-status" role="status" aria-live="polite"></p>
+      <p class="verdict-run-note">三层地牢 <i>·</i> 三种职业 <i>·</i> 三位守关者</p>
+    </div>
+    <div class="menu-bottom"><span>钟声之后，只有一发。</span><span><kbd>ENTER</kbd> 开始深入</span><span>BELOW THE OATH <i>／</i> NO. 027</span></div>
+    <div class="hero-caption"><small>BELOW THE OATH</small><b>旧誓已毁，余火未熄。</b></div>
+  </section>
+  <section id="class-screen" class="panel-screen hidden" aria-label="选择职业">
+    <header class="class-header"><div><div class="eyebrow gold">THE THREE VOWS / 巡火者档案</div><h2>选择你的<span>战斗信仰</span></h2></div><button id="class-back" class="class-back">返回圣殿 <kbd>ESC</kbd></button></header>
+    <div class="class-layout"><nav id="class-options" aria-label="职业列表"></nav><div class="class-model-caption"><span id="class-preview-number">I</span><div id="class-preview-name"></div><small id="class-preview-en"></small><p>游戏内实装模型 / 披风实时飘动</p></div><article id="class-details" aria-live="polite"></article></div>
+    <footer class="class-footer"><div><kbd>1 · 2 · 3</kbd> 切换职业 <span>每次深入均可重新选择 · 宝箱、商店、铸枪师均提供职业武器</span></div><button id="class-confirm" class="class-confirm">以余烬枪侠深入 <span>ENTER ↘</span></button></footer>
+  </section>
+  <section id="entry-screen" class="hidden" aria-live="polite"><div class="entry-shutter"></div><div class="entry-lines"></div><div class="entry-title"><div class="entry-depth">DESCENT / <span id="entry-number">01</span></div><div class="entry-sigil">✣</div><h2 id="entry-name">旧军械圣殿</h2><p id="entry-subtitle">在最后一束光下，装填你的信仰。</p><div class="entry-rule"></div></div><small class="entry-skip">SPACE / 点击 · 跳过入场</small></section>
+  <section id="modal" class="panel-screen hidden"><div id="modal-content"></div></section>
+  <section id="map-screen" class="panel-screen hidden"><div class="map-panel"><div class="eyebrow gold">EXPLORATION ARCHIVE</div><h2>地牢地图</h2><p>清空房间后可返回已探索区域。每一个门都通向新的选择。</p><canvas id="bigmap" width="760" height="470"></canvas><div class="map-legend">○ 战斗　◇ 宝箱　$ 商店　✣ 神龛　↓ 升降机　♜ 守关 Boss　? 未探索</div><button id="close-map" class="primary">继续探索 <span>M / ESC</span></button></div></section>
+  <section id="result" class="panel-screen hidden"><div id="result-content"></div></section>
+  <section id="rotate-screen" class="hidden" aria-label="横屏游玩设置"><div class="rotate-phone" aria-hidden="true"><i>✣</i></div><div class="eyebrow">BELOW THE OATH / 横屏行动</div><h2>横屏，进入地牢</h2><p>横向握持手机，获得完整视野与双摇杆操作。<br>点按下方按钮以开启全屏并锁定横屏。</p><div class="rotate-actions"><button class="primary" id="rotate-fullscreen">横屏并全屏开始</button><button class="text-btn" id="rotate-continue">仍以当前方向继续</button></div><small id="rotate-status" role="status" aria-live="polite">支持时会自动切换横屏；你也可以手动旋转设备。</small></section>
+  <div id="loading" class="hidden" aria-live="polite">载入战斗模块…</div>
+</main><script type="module" src="/src/main.js"></script>
+</body></html>
+

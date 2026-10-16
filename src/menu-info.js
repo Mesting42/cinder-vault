@@ -1,0 +1,7 @@
+const $=id=>document.getElementById(id);
+export {settings} from './settings-ui.js';
+
+export function guide(host){host.modal(`<div class="eyebrow gold">FIELD MANUAL / 行动指南</div><h2>让每一发，都有去处。</h2><p>选择余烬枪侠（射手）、霜灯法师（冻结控制）或赤铜战士（近战）。左键使用当前武器，Q 使用不会被替换的职业技能，C 使用拾取装置。宝箱、商店与铸枪师根据所选职业提供武器；遗物会适配相应职业。探索第一层的随机房间，收集武器、被动遗物与弹壳，击败第一层的断誓钟卫后解锁升降井，进入地下墓陵。在第二层击败三阶段大司铳，继续进入必经终局「黑日圣坛」，挑战三阶段黑日裁决者。前两位 Boss 的奖励祭坛各提供一次技能强化：三条职业分支中选择一条，第二次可升级原分支或转向新分支。</p>${host.game.controls?.touchMode?'<p class="touch-manual">触屏：左摇杆移动，右摇杆推向敌人即可瞄准并持续攻击；松开右摇杆停止攻击。翻滚、职业技能、装置、交互、聚能 / 换弹、切武器和空包弹都有独立按钮。点击右上小地图查看大地图；装备详情入口位于暂停按钮左侧。支持三指同时操作；竖屏会暂停并提示旋转。</p>':''}<div class="controls keyboard-controls"><span><kbd>W A S D</kbd>自由移动</span><span><kbd>鼠标 / 左键</kbd>瞄准与射击</span><span><kbd>SPACE / 右键</kbd>翻滚 · 无敌 0.48 秒</span><span><kbd>R</kbd>换弹 · 空仓自动换弹</span><span><kbd>滚轮 / 1–9</kbd>切换已持有武器</span><span><kbd>E</kbd>翻桌 / 开箱 / 购买 / 交互</span><span><kbd>Q</kbd>专属职业技能</span><span><kbd>C</kbd>局内主动装置</span><span><kbd>F</kbd>空包弹 · 消除弹幕</span><span><kbd>M</kbd>探索地图</span><span><kbd>ESC / B</kbd>暂停 / 装备详情</span></div><p>翻倒的桌子会挡住弹幕。墙体、立柱与木箱同样阻挡射击。红色油桶可引爆，第二层石棺可能唤醒亡者，诅咒符文会先预警再爆发。第三层黑日会周期改变光照，赤祭符文在金色预警后变红爆发；及时离开危险圈。发现带绿光裂纹的墙壁时，尝试射击。宝箱需要钥匙，开局遗赠箱免费。枪械拥有无限备用弹药，但需要换弹；法杖用 R 凝聚法力；赤铜重刃无需换弹，连续第三斩强化，并能击散前方敌弹。霜灯领域可冻结普通敌人，对 Boss 效果减弱。每层都含商店、神龛、随机事件与隐藏房间。</p><p class="guide-advice">开局有 60 弹壳、2 钥匙、2 空包弹与驱弹脉冲。初次深入建议先开启落点的遗赠箱，再选择探索路线。</p><button class="primary" id="guide-close">明白，继续 <span>↗</span></button>`);$('guide-close').onclick=()=>host.closeModal();
+}
+
+

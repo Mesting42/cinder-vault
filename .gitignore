@@ -1,0 +1,14 @@
+node_modules/
+dist/
+test-artifacts/
+.wrangler/
+.*-backup-*/
+.music-source-cache-*/
+.impeccable/
+design-previews/
+*.log
+HANDOFF_*.md
+*_REPORT.md
+.env*
+!.env.example
+.DS_Store

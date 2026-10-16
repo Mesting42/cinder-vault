@@ -1,0 +1,35 @@
+import * as THREE from 'three';
+import {RNG,TAU,DIRECTIONS} from './data.js';
+import {roomPoint} from './rooms.js';
+import {group,box,cylinder,material,objectModel,roomGateway,batchStatic,label} from './art.js';
+const stone=0x38343c,edge=0x766353,gold=0xba9561,red=0x943d43;
+export function ascensionModel(){const g=group();g.name='ascension-altar';cylinder(g,.92,1.15,.28,0,.14,0,stone,8);cylinder(g,.52,.72,1.12,0,.77,0,dark(),8);cylinder(g,.82,.65,.15,0,1.37,0,gold,8);const ring=new THREE.Mesh(new THREE.TorusGeometry(.42,.055,6,20),material(gold,.25));ring.position.y=1.95;g.add(ring);cylinder(g,.30,.30,.06,0,1.95,0,red,16,.5).rotation.x=Math.PI/2;batchStatic(g);return g;}
+const dark=()=>0x1a1921;
+export function buildEclipseRoom(room){const rng=new RNG(room.seed),g=group(),objects=[],lights=[],doors={},concealedDoors={},w=room.w,h=room.h;
+ g.name='black-sun-'+room.shape;
+ const shape=new THREE.Shape();room.outline.forEach(([x,z],i)=>i?shape.lineTo(x,-z):shape.moveTo(x,-z));shape.closePath();for(const points of room.holes){const hole=new THREE.Path();points.forEach(([x,z],i)=>i?hole.lineTo(x,-z):hole.moveTo(x,-z));hole.closePath();shape.holes.push(hole);}
+ const floor=new THREE.Mesh(new THREE.ExtrudeGeometry(shape,{depth:.36,bevelEnabled:false}),material(stone));floor.rotation.x=-Math.PI/2;floor.position.y=-.38;floor.receiveShadow=true;g.add(floor);
+ for(let x=-w/2+1;x<w/2;x+=2.5)for(let z=-h/2+1;z<h/2;z+=2.5){try{const p=roomPoint(room,x,z,.12);if(Math.hypot(p.x-x,p.z-z)<.05)box(g,2.3,.015,2.3,x,-.006,z,(Math.round(x+z)%3)?0x484047:0x52454a);}catch{}}
+ for(let i=0;i<room.outline.length;i++){const a=room.outline[i],b=room.outline[(i+1)%room.outline.length],dx=b[0]-a[0],dz=b[1]-a[1],length=Math.hypot(dx,dz),mx=(a[0]+b[0])/2,mz=(a[1]+b[1])/2,wall=group(g,mx,0,mz),height=-dx/length>.25?1.0:3.15;wall.rotation.y=-Math.atan2(dz,dx);
+  const d=DIRECTIONS.find(d=>{if(room.links[d.name]===undefined&&room.secret?.direction!==d.name)return false;const x=d.dx*w/2,z=d.dy*h/2,t=((x-a[0])*dx+(z-a[1])*dz)/(length*length);return t>=0&&t<=1&&Math.abs((x-a[0])*dz-(z-a[1])*dx)<.01;});const offset=d?((d.dx*w/2-mx)*dx+(d.dy*h/2-mz)*dz)/length:0;
+  const section=(from,to)=>{if(to-from<.05)return;box(wall,to-from,height,.68,(from+to)/2,height/2,0,stone);box(wall,to-from,.14,.81,(from+to)/2,height,0,edge);for(let x=from+.7;x<to-.3;x+=2.2){box(wall,.10,height*.75,.08,x,height*.52,.39,gold);box(wall,.45,.06,.08,x,height*.60,.4,red);}};
+  if(d){section(-length/2,offset-2.4);section(offset+2.4,length/2);const hidden=room.links[d.name]===undefined,entry=roomGateway(wall,offset,3,hidden,height,stone,gold,0x1d2523);if(hidden)concealedDoors[d.name]=entry;else doors[d.name]=entry.door;}else section(-length/2,length/2);
+ }
+ const add=(type,x,z,variant=0)=>{const size={column:[.65,.65],table:[1.3,.65],chest:[.9,.58],npc:[1.1,.9],eclipseRune:[1,1]}[type]||[.7,.7],p=type==='crack'?{x,z}:roomPoint(room,x,z,Math.max(...size)+.15,(a,b)=>objects.some(o=>o.solid&&Math.abs(a-o.x)<o.hw+size[0]+.2&&Math.abs(b-o.z)<o.hh+size[1]+.2));let model;
+  if(type==='column'){model=group();box(model,1.5,.20,1.5,0,.10,0,edge);box(model,.87,2.9,.87,0,1.65,0,stone);for(const sx of[-.43,.43])box(model,.10,2.7,1.0,sx,1.65,0,gold);box(model,1.3,.20,1.3,0,3.18,0,edge);}
+  else if(type==='eclipseRune'){model=group();const rune=new THREE.Mesh(new THREE.RingGeometry(.86,1.02,24),new THREE.MeshBasicMaterial({color:0xffbd90,transparent:true,opacity:.12,side:THREE.DoubleSide,depthWrite:false}));rune.rotation.x=-Math.PI/2;rune.position.y=.04;model.add(rune);for(let j=0;j<6;j++){const a=j*TAU/6,s=box(model,.12,.018,.32,Math.sin(a)*.68,.055,Math.cos(a)*.68,gold);s.rotation.y=a;}model.userData.rune=rune;}
+  else model=objectModel(type,3,variant);model.position.set(p.x,0,p.z);model.userData.animated=true;if(type==='npc'){model.rotation.y=Math.PI;model.userData.homeYaw=Math.PI;}g.add(model);const o={type,x:p.x,z:p.z,hw:size[0],hh:size[1],model,hp:type==='barrel'?12:type==='crate'?18:type==='crack'?25:9999,destroyed:false,solid:['column','table','crate','barrel'].includes(type),shotBlock:['column','crate','barrel'].includes(type)};objects.push(o);return o;};
+ for(const side of[-1,1])for(const z of[-h/2+3,h/2-3]){const p=roomPoint(room,side*(w/2-2),z,.5),lamp=group(g,p.x,0,p.z);cylinder(lamp,.21,.43,1.3,0,.65,0,gold,8);const fire=group(lamp,0,1.45,0);cylinder(fire,0,.20,.50,0,.12,0,0xffbc8f,6,1.2);fire.userData.animated=true;const light=new THREE.PointLight(0xff9d84,22,10,2);light.position.y=2;lamp.add(light);lamp.userData={fire,light};lights.push(lamp);}
+ if(room.type==='combat'){for(const side of[-1,1])add('eclipseRune',side*4,side*3).ritualClock=rng.next()*6.4;add('table',0,5);for(const side of[-1,1])add('column',side*(w*.27),-3);add('barrel',-5,3);}
+ if(room.type==='start'){add('chest',-3,0).free=true;add('npc',3,0,'watcher');}
+ if(room.type==='chest'||room.type==='secret'){add('chest',-2,-1).free=room.type==='secret';add('chest',3,2).free=room.type==='secret';}
+ if(room.type==='shrine')add('shrine',0,0);
+ if(room.type==='event'){const event=rng.pick(['forge','rescue','challenge']);add('npc',0,-2,event).event=event;}
+ if(room.type==='shop'){add('npc',0,-h/2+3,'merchant').shop=true;for(const x of[-8,-4,0,4,8])add('pedestal',x,0);}
+ for(const points of room.holes)for(let i=0;i<points.length;i++){const a=points[i],b=points[(i+1)%points.length],p=group(g,(a[0]+b[0])/2,0,(a[1]+b[1])/2);p.rotation.y=-Math.atan2(b[1]-a[1],b[0]-a[0]);box(p,Math.hypot(b[0]-a[0],b[1]-a[1]),.17,.22,0,.02,0,gold);}
+ if(room.secret){const d=DIRECTIONS.find(d=>d.name===room.secret.direction),o=add('crack',d.dx*(w/2-.55),d.dy*(h/2-.55));o.secretId=room.secret.id;o.dir=d.name;o.shotBlock=true;o.hw=d.dx?.5:1.5;o.hh=d.dx?1.5:.5;}
+ const exterior=group();const ground=new THREE.Mesh(new THREE.PlaneGeometry(w+55,h+55),material(0x15121c));ground.rotation.x=-Math.PI/2;ground.position.y=-2.2;ground.receiveShadow=true;exterior.add(ground);exterior.name='eclipsed-sanctuary';for(const side of[-1,1])for(let i=0;i<5;i++){const p=group(exterior,side*(w/2+3+i*2),-1,-h/2+2-i*3);box(p,1.8,3+i*.6,1.8,0,1+i*.3,0,dark());box(p,2.1,.18,2.1,0,2.6+i*.6,0,gold);}
+ const sun=new THREE.Mesh(new THREE.CylinderGeometry(3.0,3.0,.15,48),material(0x0a0910));sun.userData.animated=true;sun.name='eclipse-sky-disc';sun.rotation.x=Math.PI/2;sun.position.set(0,2.6,-h/2-2.5);exterior.add(sun);const corona=new THREE.Mesh(new THREE.TorusGeometry(3.12,.10,6,48),material(0xcc8a67,.6));corona.userData.animated=true;corona.position.copy(sun.position);exterior.add(corona);g.add(exterior);
+ if(room.type==='boss'){for(const x of[-11,11])add('column',x,-7);for(let i=0;i<3;i++)box(g,8-i, .20,3.8-i*.4,0,.10+i*.20,-h/2+3,gold);const seal=new THREE.Mesh(new THREE.RingGeometry(5.3,5.43,48),material(gold,.15));seal.rotation.x=-Math.PI/2;seal.position.y=.025;g.add(seal);const sign=label('黑日裁决者 / 终审圣坛','#f1c8a3',512);sign.position.set(0,4.3,-h/2+.4);g.add(sign);}
+ batchStatic(g);return{group:g,objects,lights,doors,concealedDoors,exterior:{group:exterior,theme:'eclipsed-sanctuary'},theme:'black-sun',sun:corona};
+}

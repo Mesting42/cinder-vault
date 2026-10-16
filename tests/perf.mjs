@@ -1,0 +1,5 @@
+import {chromium} from 'playwright';
+for(const mode of ['hardware','software']){
+ const browser=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true,args:mode==='software'?['--use-angle=swiftshader','--enable-unsafe-swiftshader']:[]});
+ const page=await browser.newPage({viewport:{width:1280,height:800}});await page.goto('http://127.0.0.1:5187');await page.click('#start-btn');await page.click('#class-confirm');await page.waitForTimeout(5000);const start=await page.evaluate(()=>({time:window.__game.stats.time,real:performance.now()}));await page.waitForTimeout(3000);console.log(mode,await page.evaluate(start=>{const g=window.__game,gl=g.renderer.getContext(),e=gl.getExtension('WEBGL_debug_renderer_info');return {elapsed:g.stats.time-start.time,real:(performance.now()-start.real)/1000,calls:g.renderer.info.render.calls,triangles:g.renderer.info.render.triangles,gpu:e?gl.getParameter(e.UNMASKED_RENDERER_WEBGL):'unknown'};},start));await browser.close();
+}

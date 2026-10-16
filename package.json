@@ -1,0 +1,26 @@
+{
+  "name": "cinder-vault",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build && node tools/write-version.mjs",
+    "preview": "vite preview --host 127.0.0.1",
+    "cloudflare:project": "wrangler pages project create mest-oath --production-branch main --force",
+    "cloudflare:deploy": "wrangler pages deploy dist --project-name mest-oath --branch main",
+    "cloudflare:preview": "wrangler pages deploy dist --project-name mest-oath --branch preview",
+    "test": "node tests/smoke.mjs"
+  },
+  "dependencies": {
+    "three": "^0.180.0"
+  },
+  "devDependencies": {
+    "@ffmpeg-installer/win32-x64": "4.1.0",
+    "node-edge-tts": "1.2.10",
+    "playwright": "^1.55.0",
+    "vite": "^7.1.0",
+    "wrangler": "^4.147.0"
+  }
+}

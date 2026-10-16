@@ -1,0 +1,249 @@
+/* Cinder Vault / BLACK IRON + OXBLOOD. A shared UI layer; combat colors stay semantic. */
+@import './fonts.css';
+:root{--font-ui:'Cinder Sans','Microsoft YaHei UI',sans-serif;--font-display:'Cinder Display','Arial Narrow',sans-serif;--ink:#edf0f5;--ink-secondary:#b4bdc9;--ink-muted:#8c98a9;--surface:#10151d;--surface-raised:#1a222d;--border:#44505e;--border-soft:#2b3541;--accent:#ad3946;--accent-light:#e47881;--accent-dark:#68252e;--gold:var(--ink-secondary);--muted:var(--ink-muted);--red:var(--accent-light);--line:#43505e66;color:var(--ink);background:#080c12;font-family:var(--font-ui);font-synthesis:none}
+#app *{font-family:var(--font-ui)!important}
+#app :is(button,kbd,input,select,output){font-variant-numeric:tabular-nums}
+#app :is(h1,h2,h3,h4){font-weight:650;letter-spacing:.06em}
+#app :is(button,[role=button],input,select):focus-visible{outline:2px solid #e9edf3;outline-offset:3px}
+#app ::selection{color:#fff;background:#752b39}
+#app .eyebrow{display:none}
+#app .gold{color:var(--accent-light)}
+#app kbd{background:#222b37;border:1px solid #485568;color:#c3ccd7;border-radius:0;font-size:10px;letter-spacing:.03em}
+#app .primary,#app .class-confirm{background:var(--accent-dark);color:var(--ink);border:1px solid #c14c58;box-shadow:none;clip-path:polygon(0 0,calc(100% - 9px) 0,100% 9px,100% 100%,9px 100%,0 calc(100% - 9px));letter-spacing:.04em;font-weight:600;min-height:44px}
+#app .primary:hover,#app .class-confirm:hover{background:#8f2f3e;transform:none;filter:none}
+#app .primary:active,#app .class-confirm:active{background:#a13a46}
+#app .text-btn{color:var(--ink-secondary);letter-spacing:.04em;min-height:44px;padding:10px 12px;border:1px solid var(--border-soft)}
+#app .text-btn:hover{color:var(--ink);background:#222b37;border-color:var(--border)}
+#app .text-btn span{color:inherit}
+/* Menu: the title remains on the left; the existing archive scene has room to breathe. */
+#app #menu{color:var(--ink)}
+#app #menu::after{border-color:#69738230}
+#app .menu-nav .archive-mark{font-size:10px;color:#d3dbe6;letter-spacing:.12em;gap:12px}
+#app .archive-mark .cinder-mark{display:block;width:38px;height:38px;flex:none}
+#app .archive-mark .brand-copy{display:flex;flex-direction:column;gap:4px}
+#app .menu-nav .archive-mark small{font-size:10px;color:#94a0b0;letter-spacing:.08em}
+#app .menu-nav button,#app #menu-quick-settings{font-family:var(--font-ui)!important;font-size:11px!important;letter-spacing:.04em!important;min-height:44px;background:#141b24b8;border:1px solid #495462;clip-path:polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,0 100%);color:var(--ink-secondary);padding:8px 12px!important}
+#app .menu-nav button:hover{color:var(--ink);border-color:#b34c58;background:#37222c}
+#app .verdict-title{gap:0;margin:0 0 12px;text-shadow:0 4px 20px #0009}
+#app .verdict-title span{font-family:var(--font-display)!important;font-size:clamp(76px,7.8vw,122px);font-weight:600;line-height:.77;letter-spacing:.025em;margin:0;color:var(--ink)}
+#app .verdict-title span:nth-child(2){color:#aebaca}
+#app .verdict-title em{font-size:18px;font-weight:650;font-style:normal;margin-top:22px;margin-left:1px;letter-spacing:.48em;color:#ced6e2}
+#app .verdict-ornament{width:276px;margin:20px 0 22px;height:12px;gap:10px;opacity:1}
+#app .verdict-ornament i{background:#4a535f}
+#app .verdict-ornament svg{width:30px;height:12px;stroke:#bd4b57;stroke-width:2}
+#app .verdict-actions{gap:6px;width:276px}
+#app #menu .verdict-row{height:52px;min-height:52px;width:276px;padding:7px 12px;grid-template-columns:30px 1fr 15px;grid-template-rows:21px 15px;border-color:transparent;transform:none;box-shadow:none;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%);color:var(--ink-secondary)}
+#app #menu .verdict-row:hover,#app #menu .verdict-row:focus-visible,#app #menu .verdict-row.selected{background:linear-gradient(90deg,#742735e8,#48212de0);border-color:#b34653;box-shadow:none;transform:none}
+#app #menu .verdict-row::before{display:none}
+#app #menu .verdict-row .verdict-icon{border:0;border-radius:0;color:#a8b4c3;width:22px;height:24px;padding:0}
+#app #menu .verdict-row.selected .verdict-icon{color:#f1c4c9}
+#app #menu .verdict-icon svg{width:19px;height:19px;stroke-width:1.4}
+#app #menu .verdict-row b{font-size:15px;font-weight:600;letter-spacing:.08em;color:var(--ink)}
+#app #menu .verdict-row small{font-size:10px;letter-spacing:.10em;color:#99a5b6;font-weight:500}
+#app #menu .verdict-row.selected small{color:#d9b5be}
+#app #menu .verdict-row>span{font-size:22px!important;letter-spacing:0;color:#c8d2df}
+#app #menu #start-btn>span::after{display:none}
+#app #menu .verdict-row>span svg{width:12px;height:16px;fill:none;stroke:currentColor;stroke-width:1.6}
+#app .verdict-run-note{font-size:10px;color:#8f9cac;letter-spacing:.04em;margin-top:22px}
+#app .verdict-run-note i{color:#c46670}
+#app .menu-bottom{border-color:#49556377;color:#8f9cac;font-size:10px;letter-spacing:.07em}
+#app .menu-bottom kbd{background:#111923;color:#bec8d6;border-color:#49586a}
+#app .menu-bottom>span:last-child{color:#8f9cac}
+#app .menu-bottom i{color:#b4515e}
+#app .hero-caption{border-left:1px solid #a13b48;padding-left:14px}
+#app .hero-caption small{font-size:9px;color:#9daab9;letter-spacing:.14em}
+#app .hero-caption b{font-size:18px;font-weight:500;letter-spacing:.13em;color:#d3dce8;margin-top:9px}
+#app .menu-load-status{color:#e9b4bb;font-size:11px}
+#app #menu[data-state=loading] #start-btn b::after{font-family:var(--font-ui);color:#e2b9bf;font-size:10px;letter-spacing:0}
+/* Selection: class color identifies the hero, while selection and confirm actions use the shared red. */
+#app #class-screen{color:var(--ink);background:linear-gradient(90deg,#090d15f5 0%,#0b1016e8 28%,#10152008 44%,#10152008 57%,#0b1016e8 74%,#090d15f5 100%)}
+#app .class-header,.class-footer{border-color:#48515e70}
+#app .class-header h2{font-weight:650;letter-spacing:.06em}
+#app .class-header h2 span{color:var(--ink)}
+#app .class-header .eyebrow{color:#99a5b5;letter-spacing:.12em}
+#app .class-back{color:var(--ink-secondary);border:1px solid #465364;padding:10px 14px;min-height:44px}
+#app .class-option{background:#151c25bf;border-color:#485160;clip-path:polygon(0 0,calc(100% - 9px) 0,100% 9px,100% 100%,9px 100%,0 calc(100% - 9px))}
+#app .class-option:hover{background:#202a35;transform:none;border-color:#7d4c58}
+#app .class-option.selected{background:linear-gradient(105deg,#52212bdc,#231c28d4);border-color:#bd4d5b;box-shadow:none}
+#app .class-option-copy b{font-weight:650;font-size:24px;letter-spacing:.06em;color:#dce3ed}
+#app .selected .class-option-copy b{color:var(--ink)}
+#app .class-option-copy small{color:#a1afc0;letter-spacing:.08em}
+#app .class-option-copy em{color:#b8c2cf;letter-spacing:.03em}
+#app .class-number{color:#8593a7}
+#app .class-check{color:#db8792}
+#app .class-model-caption>div{font-weight:650;letter-spacing:.08em;color:var(--ink)}
+#app .class-model-caption>span{border-color:#ad5869;color:#d79ca6}
+#app .class-model-caption p{color:#c3cddb;letter-spacing:.02em}
+#app .class-model-caption small{color:#9baabe;letter-spacing:.16em}
+#app #class-details{border-color:#49546570;scrollbar-color:#6c788b #10151c}
+#app #class-details h3{color:var(--ink);font-weight:650;letter-spacing:.06em}
+#app #class-details p{color:#b7c1cf;line-height:1.85}
+#app #class-details h4{font-weight:600;letter-spacing:.04em;color:#e2e8f1}
+#app .class-statline{border-color:#4a54616b}
+#app .class-statline b{font-family:var(--font-display)!important;font-weight:500;color:#e2e8f1;font-size:33px;line-height:1}
+#app .class-statline span,#app .class-loadout>small,#app .class-skill>small,#app .class-passive>small{color:#96a4b7}
+#app .class-shared{color:#94a4b8;border-color:#46526366}
+#app .class-footer>div{color:#b3bece}
+#app .class-footer>div>span{color:#97a5b6}
+#app .class-confirm span{color:#e5bdc6;font-size:10px}
+/* Modals and settings: opaque black iron, consistent type, quiet separators. */
+#app :is(#modal,#map-screen,#result){background:#050911a8;backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
+#app :is(#modal-content,.map-panel,#result-content){background:#111720f7;border:1px solid #4a5667;box-shadow:0 24px 70px #0007;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));color:var(--ink)}
+#app #modal h2,#app #result h2,#app .map-panel h2{font-weight:650;letter-spacing:.055em;color:var(--ink)}
+#app #modal p,#app #result p,#app .map-panel p{color:var(--ink-secondary);line-height:1.9}
+#app .modal-actions{gap:10px;flex-wrap:wrap}
+#app .build-list{gap:10px;margin:22px 0}
+#app .build-list>div{background:#1b2430;border:1px solid #3a4758;padding:15px 16px;font-size:14px;color:#e4eaf3}
+#app .build-list small{color:#aebcce;font-size:12px;line-height:1.8}
+#app #modal .build-profession{display:inline-block;margin-left:16px;font-size:.55em;font-weight:500;letter-spacing:.03em;color:#a9bbd4}
+#app #modal .build-synergy,#app #modal .guide-advice{color:#d2deef}
+#app .build-chip{background:#172232d9;border-color:#586a8477;color:#b7cbe6}
+#app .build-chip.synergy,#app .build-chip.talent-chip{background:#352131d9;color:#e4bccd!important;border-color:#99546d!important}
+#app .map-legend{color:#b0bece}
+#app .settings-panel{--settings-ink:var(--ink);--settings-muted:var(--ink-secondary);--settings-accent:var(--accent-light);color:var(--ink)}
+#app #modal-content:has(.settings-panel){background:#111720;border-color:#4a5667;color:var(--ink);box-shadow:0 24px 70px #0009}
+#app .settings-header,#app .settings-tabs,#app .setting-row,#app .settings-footer,#app .settings-data-row{border-color:#414d5e66}
+#app #modal .settings-header h2{color:var(--ink);font-weight:650;letter-spacing:.04em}
+#app .settings-header button,#app .settings-small,#app .settings-key{background:#1d2632;border:1px solid #48586c;border-radius:0;color:#d6deea;clip-path:polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,0 100%)}
+#app .settings-header button:hover,#app .settings-small:hover,#app .settings-key:hover{background:#362430;border-color:#ad5160;color:#fff}
+#app .settings-tabs button{color:#a9b5c6;font-weight:500;letter-spacing:.04em;min-height:44px}
+#app .settings-tabs button[aria-selected=true]{color:#f0dde2;border-bottom-color:#cf5866;background:#52212b7d}
+#app .setting-copy{color:var(--ink)}
+#app .setting-copy small{color:#a0adbf}
+#app .setting-row select{background:#1c2532;border-color:#4c5c71;border-radius:0;color:#dee6f1;font-size:12px;min-height:44px}
+#app .setting-range input{accent-color:#d15768}
+#app .setting-range output{color:#d6deeb}
+#app .setting-toggle{color:#c1ccda}
+#app .setting-toggle span{background:#202c3b;border-color:#657287}
+#app .setting-toggle span::after{background:#9aabc0}
+#app .setting-toggle[aria-checked=true] span{background:#963a4a;border-color:#d66778}
+#app .setting-toggle[aria-checked=true] span::after{background:#f5e5ed}
+#app .settings-panel h3{color:#dce4ef;font-weight:600}
+#app .settings-pages{scrollbar-color:#657288 #10151c}
+#app #modal .settings-render-status{background:#1d2836;color:#bfcce0;border-left:2px solid #8293ad}
+#app #settings-confirm{background:#39232d;border:1px solid #8c4959}
+#app .settings-save-state{color:#c4d1e1}
+#app .settings-save-state.is-error,#app .settings-danger{color:#f2a0ad}
+#app .settings-touch-preview{background:#0b111b;border-color:#3d4b5f}
+#app .preview-stick{border-color:#697c96}
+#app .preview-right{border-color:#bb6678}
+#app .preview-stick i{background:#25364b;border-color:#8295b0}
+#app .preview-right i{background:#622d3b;border-color:#c98193}
+#app .preview-stick span{color:#b8c8df}
+#app .talent-panel{--talent-gold:#e998a8;color:var(--ink)}
+#app .talent-choices,#app .talent-choice{border-color:#52617666}
+#app .talent-choice{color:#ccd6e5}
+#app .talent-choice:hover{background:#5323315e}
+#app .talent-copy strong small{color:#98a9c1}
+#app .talent-order,#app .talent-note{color:#a6b6cc!important}
+#app .talent-build{color:#e598a9}
+/* HUD: keep compact bars, percentages, semantic damage colors and icon-only controls. */
+#app #hud{color:#dce5f0}
+#app #hud #floor-label{color:#b0bfd2;letter-spacing:.04em}
+#app #hud #pause-btn{background:#141c29c9;border-color:#5b6a8077;color:#e0e8f5;clip-path:polygon(0 0,calc(100% - 7px) 0,100% 7px,100% 100%,0 100%)}
+#app #hud #weapon-name{color:#e3ebf5;font-weight:600;letter-spacing:.035em}
+#app #hud #ammo{color:#dce5f2;font-size:14px;font-weight:600}
+#app #hud #ammo small{color:#95a6bd;font-size:10px;font-weight:400}
+#app #hud #weapon-hud[data-resource=mana] #ammo{color:#d3afff}
+#app #hud #weapon-hud[data-resource=mana] #reload-track i{background:#b07be7}
+#app #hud #reload-track{background:#364458}
+#app #hud #reload-track i{background:#c8d2e4}
+#app #hud .vital-row b{font-size:10px;font-weight:600}
+#app #hud .health-row{color:#ed8b84}
+#app #hud .shield-row{color:#f2f5fc}
+#app #hud .resources b{color:#c1cfe1;font-size:11px;font-weight:500}
+#app #hud .resources i{color:#9fb1ca}
+#app #hud .resources>span:last-child i{color:#b3d5f2}
+#app #hud #minimap-wrap{background:#111a28c2;border-color:#50617970;backdrop-filter:none;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%)}
+#app #hud #room-name{color:#b4c4db;font-size:10px;letter-spacing:.025em}
+#app #hud .ability,#app #hud .ability strong{color:#c6d3e6}
+#app #hud .ability i svg{color:#bccbe1}
+#app #hud #skill-cooldown,#app #hud #active-cooldown{color:#d4deed;font-size:10px}
+#app #hud .device-hud{border-color:#41516a}
+#app #hud #interaction{background:#131e2def;border-color:#7a879b;color:#e4ecf7}
+#app #hud #interaction kbd{color:#eff3fa;background:#3b475c}
+#app #hud .toast{background:#15202ff2;border-left-color:#ae4b61;color:#e6edf7}
+#app #hud .toast small{color:#afc1dc}
+#app #hud #room-banner{font-weight:600;letter-spacing:.12em}
+#app #hud #room-banner small{color:#b6c6de}
+#app #hud #crosshair{border-color:#cfdaed}
+#app #hud #crosshair i,#app #hud #crosshair b{background:#eff4fb}
+#app #touch-controls .touch-button{border-radius:0;background:#172232db;border-color:#607189a8;box-shadow:inset 0 0 0 2px #1019289c,0 2px 6px #0005;color:#d8e3f4;clip-path:polygon(0 0,calc(100% - 7px) 0,100% 7px,100% 100%,7px 100%,0 calc(100% - 7px))}
+#app #touch-controls .touch-button::before{background:#080e19b8}
+#app #touch-controls .touch-roll{background:#612735dc;border-color:#c16478}
+#app #touch-controls .touch-skill{color:var(--touch-accent);border-color:var(--touch-accent)}
+#app #touch-controls .touch-button small{background:#101827d9;color:#dfeaf9;border-radius:0;font-size:10px}
+#app #touch-controls .touch-button.ready{border-color:#e69dae;background:#542b3ada;color:#f4dce5;box-shadow:inset 0 0 0 2px #7c4a5b}
+#app #touch-controls .stick{border-color:#748ba666;background:radial-gradient(circle,#15274050 0 34%,#0d16272b 35% 67%,#15233a69 68%);color:#a0b4cd}
+#app #touch-controls .aim-stick{border-color:#c07a8b8c}
+#app #touch-controls .stick-thumb{background:radial-gradient(circle at 40% 30%,#627fa680,#1a2a42d9);border-color:#a3bed47f;box-shadow:0 3px 10px #0004}
+#app #touch-controls .aim-stick .stick-thumb{background:radial-gradient(circle at 40% 30%,#b468808a,#622f42d9);border-color:#c88a9e9c}
+#app #touch-controls .stick-lines{border-color:#9db0c830}
+#app #touch-controls .stick-lines::before,#app #touch-controls .stick-lines::after{background:#93a5c032}
+/* Entry, Boss warnings, results and rotation use the same title treatment. */
+#app .entry-title h2{font-weight:650;color:#e4ebf6;letter-spacing:.12em}
+#app .entry-title p,#app .entry-skip{color:#b6c5dc}
+#app .entry-depth{color:#b3c2d8}
+#app .entry-rule{border-color:#9a4e62}
+#app .boss-warning-band{border-color:#9a465b;background:linear-gradient(90deg,#0c101800,#23131ef0 22%,#111724fa 50%,#23131ef0 78%,#0c101800)}
+#app .boss-warning-band strong{color:#edf0f7;font-weight:650;letter-spacing:.13em}
+#app .boss-warning-band span{color:#d89aaa;letter-spacing:.24em}
+#app #result h2{color:#eebcc7}
+#app .result-stats b{font-family:var(--font-display)!important;color:#e7eef9;font-size:40px;font-weight:500}
+#app .result-stats span,#app .result-seed{color:#9daec6}
+#app .result-class,#app .result-build{color:#c4d2e7;letter-spacing:.025em}
+#app #rotate-screen{background:radial-gradient(ellipse at 50% 35%,#293245,#0b111c 70%);color:#dce5f4}
+#app #rotate-screen h2{font-weight:650}
+#app #rotate-screen p{color:#b4c2d8}
+#app #rotate-screen small{color:#97a6bd}
+#app .rotate-phone{border-color:#b38396}
+#app .rotate-phone i,#app .rotate-phone::after{color:#ca8196}
+#app #loading{background:#101722;color:#dde5f1}
+/* Preserve the established touch layout and its minimum 44px targets. */
+@media(max-width:950px){
+ #app .verdict-title span{font-size:78px}
+ #app .verdict-title em{font-size:15px;margin-top:17px}
+ #app .verdict-ornament{width:248px;margin:16px 0 18px}
+ #app .hero-caption b{font-size:16px}
+ #app .class-option-copy b{font-size:21px}
+}
+@media(orientation:landscape) and (max-height:540px){
+ body.touch-input #app .verdict-title span{font-size:52px;line-height:.76}
+ body.touch-input #app .verdict-title em{font-size:12px;margin-top:11px;letter-spacing:.4em}
+ body.touch-input #app .verdict-ornament{width:248px;height:10px;margin:10px 0 10px}
+ body.touch-input #app .verdict-run-note{font-size:9px;margin-top:8px;letter-spacing:.02em}
+ body.touch-input #app .hero-caption b{font-size:14px;letter-spacing:.08em}
+ body.touch-input #app .menu-nav .archive-mark{gap:9px;font-size:9px}
+ body.touch-input #app .archive-mark .cinder-mark{width:32px;height:32px}
+ body.touch-input #app .menu-nav .archive-mark small{font-size:9px}
+ body.touch-input #app .class-option-copy b{font-size:18px;line-height:1.15;margin:2px 0}
+ body.touch-input #app .class-option-copy small{line-height:1.15}
+ body.touch-input #app .class-option-copy em{display:block;line-height:1.2}
+ body.touch-input #app .class-statline b{font-size:26px}
+ body.touch-input #app .class-back{padding:6px 9px;font-size:11px}
+ body.touch-input #app .class-confirm{font-size:13px}
+ body.touch-input #app .result-stats b{font-size:29px}
+ body.touch-input #app #hud #weapon-name{font-size:12px}
+ body.touch-input #app #hud #ammo{font-size:12px}
+ body.touch-input #app #modal h2{font-size:26px}
+ body.touch-input #app #modal .settings-header h2{font-size:22px}
+ body.touch-input #app #result-content{padding:16px 22px}
+ body.touch-input #app #result h2{font-size:28px;margin:4px 0 8px;line-height:1.2}
+ body.touch-input #app #result p{font-size:12px;line-height:1.6;margin:7px 0}
+ body.touch-input #app .result-stats{margin:12px 0;gap:clamp(10px,3vw,25px)}
+ body.touch-input #app .result-stats b{font-size:26px;line-height:1;margin-bottom:5px}
+ body.touch-input #app .result-class{margin:8px 0 0;font-size:11px}
+ body.touch-input #app .result-build{margin:8px 0;font-size:10px;line-height:1.5}
+ body.touch-input #app .result-actions .primary,body.touch-input #app .result-actions .text-btn{height:44px;min-height:44px;padding:10px 16px;font-size:12px}
+ body.touch-input #app .result-seed{font-size:9px;margin-top:8px}
+}
+@media(orientation:landscape) and (max-height:420px){
+ body.touch-input #app .verdict-title span{font-size:45px;line-height:.79}
+ body.touch-input #app .verdict-title em{font-size:11px;margin-top:8px}
+ body.touch-input #app .verdict-ornament{height:8px;margin:8px 0 8px}
+ body.touch-input #app .verdict-run-note{margin-top:5px;font-size:8px}
+ body.touch-input #app .verdict-row b{font-size:13px}
+ body.touch-input #app .verdict-row small{font-size:9px}
+}
+@media(max-width:700px) and (orientation:landscape){body.touch-input #app .verdict-ornament{width:215px}body.touch-input #app .menu-nav .archive-mark small{display:none}}
+@media(prefers-reduced-motion:reduce){#app .verdict-row,#app .class-option,#app .class-confirm{transition:none}}

@@ -1,0 +1,12 @@
+#boss-warning{position:fixed;inset:0;z-index:18;display:grid;align-content:center;pointer-events:none;background:linear-gradient(transparent 19%,#06090b4d 45%,#06090b4d 55%,transparent 81%);--warning-progress:0%}
+.boss-introduction #toast-stack{visibility:hidden}
+.boss-warning-band{position:relative;display:flex;align-items:center;justify-content:center;gap:26px;padding:24px max(20px,env(safe-area-inset-right));background:linear-gradient(90deg,#120b1000,#160c12eb 22%,#100e16f5 50%,#160c12eb 78%,#120b1000);border-block:1px solid #6d4037;animation:boss-warning-enter .32s ease-out both}
+.boss-warning-band::after{content:'';position:absolute;bottom:-1px;left:20%;width:calc(var(--warning-progress)*.6);height:2px;background:var(--warning-color);box-shadow:0 0 15px var(--warning-color)}
+.boss-warning-band svg{width:72px;height:72px;fill:none;stroke:var(--warning-color);stroke-width:2;filter:drop-shadow(0 0 10px #ad553e66)}
+.boss-warning-band span{display:block;color:#d5a183;font-size:11px;letter-spacing:8px;margin-bottom:12px}
+.boss-warning-band strong{display:block;font:38px/1.25 SimSun,serif;color:#f2dcc5;letter-spacing:9px;text-shadow:0 3px 12px #000}
+.boss-warning-band p{color:var(--warning-color);font-size:11px;letter-spacing:5px;margin:12px 0 0}
+@keyframes boss-warning-enter{from{opacity:0;transform:scaleX(1.08)}to{opacity:1;transform:scaleX(1)}}
+.warning-reduced .boss-warning-band{animation:none}
+@media(max-height:540px){.boss-warning-band{gap:18px;padding-block:14px}.boss-warning-band svg{width:54px;height:54px}.boss-warning-band strong{font-size:26px;letter-spacing:6px}.boss-warning-band span{font-size:10px;margin-bottom:7px;letter-spacing:5px}.boss-warning-band p{margin-top:7px;font-size:10px;letter-spacing:3px}}
+@media(prefers-reduced-motion:reduce){.boss-warning-band{animation:none}}
