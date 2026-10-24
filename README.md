@@ -265,3 +265,14 @@ Scott Buckley 七首 CC BY 4.0 作品分别用于共用主菜单 / 选角、三�
 其后按用户确认移除游戏内配乐署名入口，来源与授权文件继续附带在项目中。该小改动完成电脑 / 手机声音设置检查并重跑 40 项设置回归，证据见 `test-artifacts/audio-credit-removal.json`。
 
 手机打开时新增横屏引导；首次开始会请求全屏及横屏锁定，支持有限的设备可手动全屏或继续。设置 → 画面可退出全屏。游戏已部署到 Cloudflare Pages： [https://mest-oath.pages.dev/](https://mest-oath.pages.dev/)。当前生产版本为 `5291e48385e0`；发布流程与资源缓存设置见 [Cloudflare Pages 发布说明](CLOUDFLARE_DEPLOYMENT.md)。
+
+<!-- pixel-pier-game-listing:start -->
+## Game listing / 游戏展示
+
+- **Game developer / 游戏开发者:** Mest ([@Mesting42](https://github.com/Mesting42))
+- **Pixel Pier listing / 游戏展示页面:** [Below the Oath](https://riverglint.link/games/cinder-vault/)
+
+This game is listed on Pixel Pier with a play entry and game guide. This link identifies a game-development and listing relationship; it does not identify the developer as the website operator or operating entity.
+
+本游戏在 Pixel Pier 展示，并提供游玩入口与游戏指南。此链接仅表示游戏开发与展示关联，不代表开发者是该网站的运营者或运营主体。
+<!-- pixel-pier-game-listing:end -->
